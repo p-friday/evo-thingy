@@ -12,11 +12,11 @@ ScreenHeight : i32 : 600
 NUM_GENERATIONS :: 100
 POPULATION_SIZE :: 20
 MUTATION_RATE :: 0.6
-TIME_STEPS :: 200
+TIME_STEPS :: 300
 TARGET : rl.Rectangle : {f32(ScreenWidth-50), f32(ScreenHeight-50), 20, 20}
 
-w1 : f32 : 1.5 // distance to target
-w2 : f32 : 2.1 // collisions
+w1 : f32 : 2.5 // distance to target
+w2 : f32 : 2.0 // collisions
 w3 : f32 : 1.0 // how fast target reached
 
 // START : rl.Vector2 : { f32(ScreenWidth/2), f32(ScreenHeight/2)}
@@ -168,7 +168,7 @@ mutate :: proc(population: ^[]Individual) {
 
 createObstacles :: proc() -> [dynamic]Obstacle {
 	obstacles: [dynamic]Obstacle
-	numObstacles := 35
+	numObstacles := 0
 	
 	for i in 0..<numObstacles {
 		rc := rl.Rectangle{f32(rl.GetRandomValue(50, ScreenWidth-60)), f32(rl.GetRandomValue(60, ScreenHeight-60)), f32(rl.GetRandomValue(10,100)), f32(rl.GetRandomValue(10,100))}
@@ -239,7 +239,7 @@ main :: proc() {
 	fmt.println("Hellope")
 	
 	rl.InitWindow(ScreenWidth, ScreenHeight, "Hellope")
-	rl.SetTargetFPS(60)
+	rl.SetTargetFPS(150)
 	
 	frameCount := 0
 	
@@ -331,58 +331,6 @@ main :: proc() {
 		}
 		rl.DrawText(rl.TextFormat("Generation: %i", currentGeneration+1), 0, 0, 20, rl.BLACK)
 		rl.EndDrawing()
-
-		// if rl.IsKeyDown(rl.KeyboardKey.SPACE) && shouldMove {
-		// 	shouldMove = false
-		// 	moveIndividual(&player, geneIdx)
-		// 	outOfBoundsCheck(&player.rec)
-		// 	for &ob in obstacles {
-		// 		collide(&player, &(ob.rec))
-		// 	}
-		// 	geneIdx += 1
-		// 	if geneIdx >= len(player.genes) {
-		// 		geneIdx = 0
-		// 	}
-		// }
-		// if rl.IsKeyUp(rl.KeyboardKey.SPACE) && !shouldMove {
-		// 	shouldMove = true
-		// }
-		
-		
-
-		// for i := 0; i < NUM_GENERATIONS; i+=1 {
-		// 	// step #3: Selection
-		// 	newPopulation := selection(population)
-
-		// 	// step #4: Crossover
-
-		// 	// step #5: Mutation
-			
-		// 	// step #6: Fitness evaluation
-		// 	for j := 0; j < POPULATION_SIZE; j+=1 {
-		// 		population[j].fitness = evaluateFitness(population[j])
-		// 	}
-		// 	// if reached the target break? or do we continue to potentialy get a more efficient route?
-
-		// 	rl.BeginDrawing()
-			
-		// 	rl.ClearBackground(rl.RAYWHITE)
-			
-		// 	// step #7: draw simulation
-		// 	rl.DrawRectangleV(position, 20, rl.MAROON)
-			
-		// 	for ob in obstacles {
-		// 		rl.DrawRectangleRec(ob.rec, ob.color)
-		// 	}
-
-		// 	rl.EndDrawing()
-		// }
-
-		// movePlayer(&player)
-		// outOfBoundsCheck(&player)
-		// for &ob in obstacles {
-		// 	collide(&player, &(ob.rec))
-		// }
 	}
 	
 	rl.CloseWindow()
